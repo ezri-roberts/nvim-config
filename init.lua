@@ -1,4 +1,4 @@
-require 'lua.opt'
+require 'settings'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
