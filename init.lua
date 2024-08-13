@@ -1,4 +1,4 @@
-require 'settings'
+require 'config.settings'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -29,7 +29,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup(require 'lua.plugins.init', {
+require('lazy').setup(require 'config.plugins.init', {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -51,7 +51,7 @@ require('lazy').setup(require 'lua.plugins.init', {
   },
 })
 
-require 'lua.keymaps'
+require 'config.keymaps'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

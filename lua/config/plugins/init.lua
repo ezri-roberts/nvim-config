@@ -148,10 +148,10 @@ return {
     end,
   },
 
-  require 'lua.plugins.telescope',
-  require 'lua.plugins.treesitter',
-  require 'lua.plugins.smartsplits',
-  require 'lua.plugins.lsp',
-  require 'lua.plugins.cmp',
-  require 'lua.plugins.mini',
+  require 'config.plugins.telescope',
+  require 'config.plugins.treesitter',
+  require 'config.plugins.smartsplits',
+  require 'config.plugins.lsp',
+  require 'config.plugins.cmp',
+  require 'config.plugins.mini',
 }
