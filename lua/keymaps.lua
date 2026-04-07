@@ -5,7 +5,22 @@
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
+-- Diagnostic Config & Keymaps
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+  -- Can switch between these as you prefer
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+  -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+  jump = { float = true },
+}
+
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -22,6 +37,9 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+vim.keymap.set('n', '<leader>sv', '<cmd>vsplit<CR>', { desc = 'Split vertically' })
+vim.keymap.set('n', '<leader>sh', '<cmd>split<CR>', { desc = 'Split horizontally' })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -30,21 +48,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- Create splits
-vim.keymap.set('n', '<leader>sv', '<cmd>vsplit<CR>', { desc = 'Split vertically' })
-vim.keymap.set('n', '<leader>sh', '<cmd>split<CR>', { desc = 'Split horizontally' })
-
-vim.keymap.set('n', '<leader>ta', ':$tabnew<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>tt', ':$tabnew | terminal<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>to', ':tabonly<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>tn', ':tabn<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>tp', ':tabp<CR>', { noremap = true })
--- move current tab to previous position
-vim.keymap.set('n', '<leader>tmp', ':-tabmove<CR>', { noremap = true })
--- move current tab to next position
-vim.keymap.set('n', '<leader>tmn', ':+tabmove<CR>', { noremap = true })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -57,13 +60,11 @@ vim.keymap.set('n', '<leader>tmn', ':+tabmove<CR>', { noremap = true })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.hl.on_yank() end,
 })
 
 -- vim: ts=2 sts=2 sw=2 et
